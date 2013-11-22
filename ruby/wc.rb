@@ -1,9 +1,10 @@
 def wc( fname, fhandle )
 	lines = bytes = words = 0
-	fhandle
-		.tee { |l| bytes += l.length }
-		.tee { |l| words += l.chomp.split(/\s+/).reject { |w| w.length == 0 }.length }
-		.tee { lines += 1 }
+	fhandle.each { |l|
+		bytes += l.length
+		words += l.chomp.split(/\s+/).reject { |w| w.length == 0 }.length
+		lines += 1
+	}
 	print "%s\t%d\t%d\t%d\n" % [ fname, lines, words, bytes ]
 end
 
